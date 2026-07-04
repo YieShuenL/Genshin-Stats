@@ -1,5 +1,9 @@
 # 🎮 Discord Dynamic Genshin Profile Widget
 
+<div align="center">
+  <img src="https://static.wikia.nocookie.net/gensin-impact/images/2/2a/Genshin-Impact-Logo.png" width="700" />
+</div>
+
 > **Real-Time Genshin Impact Discord Widget Automation powered by
 > Enka.Network & GitHub Actions**
 
@@ -19,7 +23,9 @@ server required.
 
 ## 📸 Preview
 
-![Discord widget preview](preview.png)
+<p align="center">
+  <img src="preview.png">
+</p>
 
 ------------------------------------------------------------------------
 
@@ -108,11 +114,14 @@ make sure **"Show Character Details"** is enabled.
 
 ### 2. Create a Discord Application
 
-1.  Go to the [Discord Developer Portal](https://discord.com/developers/applications).
-2.  Create an application and add a **Bot**.
-3.  Copy the **Application ID** (`DISCORD_CLIENT_ID`) and the
+### be advised that this requires knowing what you're doing, along with browser devtools knowledge!
+2.1 Go to the [Discord Developer Portal](https://discord.com/developers/applications).
+> the warning only applies if you are manually creating your widget!
+- 2.1.a. use this [widget creation script](https://gist.github.com/aamiaa/7cdd590e3949cd654758bc90bcb4710b) by aamia (automatic). 
+- 2.1.b. if you want to manually go thru the creation process, follow the steps in this [blog post](https://chloecinders.com/blog/discord-widgets) by chloecinders to create your discord application, social sdk profile and widget design.
+2.  Copy the **Application ID** (`DISCORD_CLIENT_ID`) and the
     **Bot Token** (`DISCORD_BOT_TOKEN`).
-4.  Create your **Dynamic Profile Widget** and bind the fields listed
+3.  Create your **Dynamic Profile Widget** and bind the fields listed
     in [Widget Fields](#-widget-fields) below.
 
 ### 3. Add GitHub Secrets
@@ -259,7 +268,7 @@ Schedule:
 
 ``` yaml
 schedule:
-  - cron: "0 */3 * * *"
+  - cron: "0 */6 * * *"
 ```
 
 Manual execution is also supported via **Run workflow**.
@@ -314,6 +323,8 @@ Genshin-Stats/
 -   https://github.com/EnkaNetwork/API-docs
 -   https://discord.com/developers/docs
 -   https://docs.github.com/actions
+-   https://chloecinders.com/blog/discord-widgets#setting-up-your-application-and-developer-portal
+-   https://github.com/toastylol/Genshin-Stats
 
 ------------------------------------------------------------------------
 
