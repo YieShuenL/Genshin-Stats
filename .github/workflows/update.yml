@@ -1,26 +1,38 @@
 name: Update Genshin Widget
 
 on:
-  schedule:
-    - cron: "0 */6 * * *"   # every 6 hours
   workflow_dispatch:
+
+  schedule:
+    # Every 6 hours
+    - cron: "0 */6 * * *"
+
+permissions:
+  contents: read
 
 jobs:
   update:
     runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v4
+    timeout-minutes: 5
 
-      - uses: actions/setup-node@v4
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
 
-      - run: npm install
+      - name: Install Dependencies
+        run: npm ci
 
-      - run: node enkaUser.js
+      - name: Run Genshin Widget Updater
         env:
           GENSHIN_UID: ${{ secrets.GENSHIN_UID }}
           DISCORD_CLIENT_ID: ${{ secrets.DISCORD_CLIENT_ID }}
           DISCORD_USER_ID: ${{ secrets.DISCORD_USER_ID }}
           DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+        run: node enkaUser.js
