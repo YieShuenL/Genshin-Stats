@@ -14,13 +14,28 @@ const DISCORD_CLIENT_ID = process.env.DISCORD_CLIENT_ID;
 const DISCORD_USER_ID = process.env.DISCORD_USER_ID;
 const DISCORD_BOT_TOKEN = process.env.DISCORD_BOT_TOKEN; 
 
+// How often the displayed character rotates (in hours).
+// Should match (or be a multiple of) the GitHub Actions cron schedule.
+const ROTATE_HOURS = Number(process.env.ROTATE_HOURS ?? 6);
+
 // =====================
 // CHARACTER IMAGE
 // =====================
 async function getCharacterImageUrl(player) {
     try {
-        // 1st choice: the first character in the in-game showcase
-        const showcased = player.showAvatarInfoList?.[0];
+        // Rotate through the showcase: pick a different character every ROTATE_HOURS.
+        // Time-based, so no state file is needed — each scheduled run lands on the next slot.
+        const showcase = player.showAvatarInfoList ?? [];
+        let showcased = null;
+
+        if (showcase.length > 0) {
+            const rotationIndex =
+                Math.floor(Date.now() / (ROTATE_HOURS * 3600 * 1000)) % showcase.length;
+            showcased = showcase[rotationIndex];
+            console.log(
+                `🔄 Rotation: slot ${rotationIndex + 1}/${showcase.length} (changes every ${ROTATE_HOURS}h)`
+            );
+        }
 
         if (showcased) {
             const { data: characters } = await axios.get(CHARACTERS_MAP_URL, { timeout: 10000 });

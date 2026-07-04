@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
 
   schedule:
-    # Every 6 hours
-    - cron: "0 */6 * * *"
+    # Every 3 hours
+    - cron: "0 */3 * * *"
 
 permissions:
   contents: read
