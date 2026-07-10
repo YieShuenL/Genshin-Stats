@@ -184,7 +184,7 @@ async function syncGenshinStats() {
             },
 
             {
-                type: 2,
+                type: 1,
                 name: "adv",
                 value: player.level ?? 0
             },
